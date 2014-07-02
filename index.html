@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>XU</title>
+<title>Xu</title>
 <style type="text/css" media="screen">
     #editor { 
         position: absolute;
@@ -16,11 +16,14 @@
 
 <div id="editor"></div>
     
-<script src="src-min/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/ace/src-min/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/classes/words.js" type="text/javascript" charset="utf-8"></script>
 <script>
+    var words = new Words();
     var editor = ace.edit("editor");
     editor.setTheme("ace/theme/monokai");
     editor.getSession().setMode("ace/mode/java");
+	editor.setValue(words.basic);
 </script>
 </body>
 </html>
