@@ -21,6 +21,7 @@
 <script>
     var words = new Words();
     var editor = ace.edit("editor");
+	editor.setShowPrintMargin(false);
     editor.setTheme("ace/theme/monokai");
     editor.getSession().setMode("ace/mode/java");
     editor.insert(words.package + "\n\n");
