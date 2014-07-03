@@ -38,4 +38,6 @@ function Words() {
         "        private String name = \"\";\n" +
         "        private String level = \"\";\n" +
         "    }";
+		
+	this.education = "";
 }
