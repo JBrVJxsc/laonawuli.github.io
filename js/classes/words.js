@@ -12,7 +12,7 @@ function Words() {
         "        private String firstName = \"Xu\";\n" +
         "        private String lastName = \"Zhang\";\n" +
         "        private String sex = \"Male\";\n" +
-        "        private int age = 28;\n" +
+        "        private int age = 26;\n" +
         "        private String phone = \"+8615750481555\";\n" +
         "        private String email = \"laonawuli@gmail.com\";\n" +
         "    }";
