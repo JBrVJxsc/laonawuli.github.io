@@ -5,14 +5,21 @@ function Words() {
         "{\n" +
         "    public static void main(String[] args)\n" +
         "    {\n\n" +
+		         String firstName = \"Xu\";\n" +
+				 String lastName = \"Zhang\";\n" +
+				 String gender = \"Male\";\n" +
+				 int age = 27;\n" +
+				 String email = \"laonawuli@126.com\";\n" +
+				 String linkedin = \"http://cn.linkedin.com/in/laonawuli\";\n" +
+				 String gitHub = \"https://github.com/laonawuli\";\n" +
         "    }";
 
     this.basic = "    private class Basic\n" +
         "    {\n" +
         "        private String firstName = \"Xu\";\n" +
         "        private String lastName = \"Zhang\";\n" +
-        "        private String sex = \"Male\";\n" +
-        "        private int age = 26;\n" +
+        "        private String gender = \"Male\";\n" +
+        "        private int age = 27;\n" +
         "        private String phone = \"+8615750481555\";\n" +
         "        private String email = \"laonawuli@gmail.com\";\n" +
         "    }";
