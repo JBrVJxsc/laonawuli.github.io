@@ -1,0 +1,24 @@
+{
+  "PERSONS": [
+    {
+      "BOARD_POSITIONS": [
+        {
+          "COMPANYCIK*": "0000005117",
+          "COMPANYNAME": "EMTEC INC/NJ",
+          "isTenPercentOwner": "1"
+        }
+      ],
+      "CORPORATE_POSITIONS": [
+        {
+          "COMPANYCIK*": "0000005117",
+          "COMPANYNAME": "EMTEC INC/NJ",
+          "TITLE": "Chairman, CEO and President",
+          "isTenPercentOwner": "1"
+        }
+      ],
+      "PERSONCIK*": "0001337253",
+      "PERSONNAME": "Desai Dinesh"
+    }
+  ]
+}
+

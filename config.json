@@ -1,0 +1,30 @@
+{
+  "merge_samples": [
+    {
+      "description": "Sample1",
+      "folder": "js/samples/merge/sample1/"
+    },
+    {
+      "description": "Sample2",
+      "folder": "js/samples/merge/sample2/"
+    },
+    {
+      "description": "Sample3",
+      "folder": "js/samples/merge/sample3/"
+    }
+  ],
+  "query_samples": [
+    {
+      "description": "Sample1",
+      "folder": "js/samples/query/sample1/"
+    },
+    {
+      "description": "Sample2",
+      "folder": "js/samples/query/sample2/"
+    },
+    {
+      "description": "Sample3",
+      "folder": "js/samples/query/sample3/"
+    }
+  ]
+}

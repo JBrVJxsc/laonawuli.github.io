@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Popcorn Demo</title>
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="js/highlightjs/styles/obsidian.css" rel="stylesheet">
+</head>
+
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <a class="navbar-brand" href="https://bitbucket.org/cmps277f14/popcorn_client">Popcorn Demo</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <div class="navbar-form navbar-left" role="search" method="post" action="#">
+                <button id="btn-merge" class="btn btn-default">
+                    <span class="glyphicon glyphicon-play"></span> Merge
+                </button>
+            </div>
+
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">CHOOSE SAMPLES<span class="caret"></span></a>
+                    <ul id="dropdown-samples" class="dropdown-menu" role="menu">
+                    </ul>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="index.html" target="_self">MERGE</a></li>
+                <li><a href="query.html" target="_blank">QUERY</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <!-- Nav tabs -->
+    <ul id="tab" class="nav nav-tabs" role="tablist">
+        <li id="tab_schema" class="active"><a href="#tab_c_schema" role="tab"
+                                              data-toggle="tab">Schema</a></li>
+        <li id="tab_document"><a href="#tab_c_document" role="tab" data-toggle="tab">Document</a></li>
+        <li id="tab_temporalcontext"><a href="#tab_c_temporalcontext" role="tab" data-toggle="tab">Temporal
+            Context</a></li>
+        <li id="tab_mergepreference"><a href="#tab_c_mergepreference" role="tab" data-toggle="tab">Merge
+            Preference</a></li>
+        <li id="tab_merged" class="disabled"><a href="#tab_c_merged" role="tab"
+                                                data-toggle="tab">Merged</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div class="tab-pane fade in active" id="tab_c_schema">
+            <p></p>
+
+            <div id="txt-schema">
+                <pre><code></code></pre>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="tab_c_document">
+            <p></p>
+
+            <div id="txt-document">
+                <pre><code></code></pre>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="tab_c_temporalcontext">
+            <p></p>
+
+            <div id="txt-temporalcontext">
+                <pre><code></code></pre>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="tab_c_mergepreference">
+            <p></p>
+
+            <div id="txt-mergepreference">
+                <pre><code></code></pre>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="tab_c_merged">
+            <p></p>
+
+            <div id="txt-merged">
+                <pre><code></code></pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <p class="muted credit" style="position: relative; bottom: 0; width:100%; text-align: left">Powered by <a
+            href="http://getbootstrap.com/">Bootstrap</a> & <a
+            href="http://bootswatch.com/">Bootswatch</a>.</p>
+</div>
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script type='text/javascript' src="js/highlightjs/highlight.pack.js"></script>
+<script src="js/jquery-1.11.1.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script type='text/javascript'>
+    $('body').tooltip({
+        selector: '[data-toggle=tooltip]'
+    });
+    hljs.initHighlightingOnLoad();
+
+    $(document).ready(function () {
+
+        loadSamples();
+
+        $("#btn-merge").click(function () {
+            $.getJSON("js/samples/output/api.json", function (data) {
+                values = [];
+                traverse(data, process, null);
+                console.log(values.length);
+
+                var tooltips = new Array();
+                var id = 0;
+                for (var i = 0; i < values.length; i++) {
+                    var vi = values[i];
+                    for (var j = 0; j < vi.length; j++) {
+                        var vj = vi[j];
+                        var vjValue = vj["value"];
+                        var vjContext = vj["context"];
+                        var contexts = "";
+                        for (var k = 0; k < vjContext.length; k++) {
+                            $.each(vjContext[k], function (key, val) {
+                                contexts += "<p align='left' style='margin-top: 14px'>" + key + ": " + val + "</p>";
+                            });
+                            if (k != vjContext.length - 1) {
+                                contexts += "<hr style='margin-top: 2px; margin-bottom: 4px'>";
+                            }
+                        }
+                        tooltips[id] = contexts;
+                        vj["value"] = "<a id=tooltip" + id++ + " href=# data-toggle=tooltip data-html=true data-placement=top>" + vjValue + "</a>";
+                        delete vj["context"];
+                    }
+                }
+
+                $("#txt-merged").html("<pre><code>" + JSON.stringify(data, null, 3) + "</code></pre>");
+
+                for (var i = 0; i < tooltips.length; i++) {
+                    var t = $("#tooltip" + i);
+                    t.attr("title", tooltips[i]);
+                }
+
+                reloadHighlight();
+            });
+            $("#tab_merged").removeClass("disabled");
+            $('#tab a:last').tab('show');
+        });
+
+        $("#tab_merged").click(function (event) {
+            if ($(this).hasClass('disabled')) {
+                return false;
+            }
+        });
+    });
+
+    var samples = new Array();
+    function loadSamples() {
+        $.getJSON("config.json", function (data) {
+            for (i = 0; i < data["merge_samples"].length; i++) {
+                var id = data["merge_samples"][i].description;
+                var folder = data["merge_samples"][i].folder;
+                samples["SAMPLEID" + id] = folder;
+                var li = document.createElement('li');
+                li.innerHTML = "<a id=\"SAMPLEID" + id + "\" href=\"#\">" + id + "</a>";
+                $('#dropdown-samples').append(li);
+                li.onclick = function (e) {
+                    var sender = (e && e.target) || (window.event && window.event.srcElement);
+                    $("#tab_merged").addClass("disabled");
+                    $('#tab a:first').tab('show');
+                    setSampleText(samples[sender.id] + "schema.json", "#txt-schema");
+                    setSampleText(samples[sender.id] + "document.json", "#txt-document");
+                    setSampleText(samples[sender.id] + "temporalcontext.json", "#txt-temporalcontext");
+                    setSampleText(samples[sender.id] + "preference.json", "#txt-mergepreference");
+                };
+            }
+        });
+    }
+
+    function reloadHighlight() {
+        hljs.initHighlighting.called = false;
+        hljs.initHighlighting();
+    }
+
+    function setSampleText(url, txtID) {
+        $.getJSON(url, function (data) {
+            $(txtID).html("<pre><code>" + JSON.stringify(data, null, 3) + "</code></pre>");
+            reloadHighlight();
+        });
+    }
+
+    var values = undefined;
+    function process(key, value, parent) {
+        if (key === "value") {
+            if ($.inArray(parent, values) === -1) {
+                values.push(parent);
+            }
+        }
+    }
+
+    function traverse(obj, func, parent) {
+        for (var i in obj) {
+            func.apply(this, [i, obj[i], parent]);
+            if (obj[i] !== null && typeof(obj[i]) == "object") {
+                traverse(obj[i], func, obj);
+            }
+        }
+    }
+</script>
+</body>
+</html>

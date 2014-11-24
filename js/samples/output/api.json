@@ -1,0 +1,88 @@
+{
+  "PERSONS": [
+    {
+      "BOARD_POSITIONS": [
+        {
+          "COMPANYCIK*": "0000005117",
+          "COMPANYNAME": "EMTEC INC/NJ",
+          "isTenPercentOwner": "1"
+        }
+      ],
+      "CORPORATE_POSITIONS": [
+        {
+          "COMPANYCIK*": "0000005117",
+          "COMPANYNAME": "EMTEC INC/NJ",
+          "TITLE": [
+            {
+              "value": "Chairman",
+              "context": [
+                {
+                  "asof": "10-01-2001 - 10-10-2001",
+                  "reported": "10-01-2001 - 10-10-2001"
+                },
+                {
+                  "asof": "01-01-2001 - now",
+                  "reported": "01-01-2001 - now"
+                }
+              ]
+            },
+            {
+              "value": "CEO",
+              "context": [
+                {
+                  "asof": "10-01-2002 - 10-10-2002",
+                  "reported": "10-01-2002 - 10-10-2002"
+                },
+                {
+                  "asof": "01-01-2002 - now",
+                  "reported": "01-01-2002 - now"
+                }
+              ]
+            },
+            {
+              "value": "President",
+              "context": [
+                {
+                  "asof": "10-01-2003 - 10-10-2003",
+                  "reported": "10-01-2003 - 10-10-2003"
+                }
+              ]
+            }
+          ],
+          "JOB": [
+            {
+              "value": "Worker",
+              "context": [
+                {
+                  "asof": "10-01-2004 - 10-10-2004",
+                  "reported": "10-01-2004 - 10-10-2004"
+                },
+                {
+                  "asof": "01-01-2004 - now",
+                  "reported": "01-01-2004 - now"
+                }
+              ]
+            },
+            {
+              "value": "Farmer",
+              "context": [
+                {
+                  "asof": "10-01-2005 - 10-10-2005",
+                  "reported": "10-01-2005 - 10-10-2005"
+                },
+                {
+                  "asof": "01-01-2005 - now",
+                  "reported": "01-01-2005 - now"
+                }
+              ]
+            }
+          ],
+          "isTenPercentOwner": "1"
+        }
+      ],
+      "PERSONCIK*": "0001337253",
+      "PERSONNAME": "Desai Dinesh"
+    }
+  ]
+}
+
