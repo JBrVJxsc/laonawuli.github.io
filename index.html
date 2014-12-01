@@ -121,45 +121,56 @@
         loadSamples();
 
         $("#btn-merge").click(function () {
-            $.getJSON("js/samples/output/api.json", function (data) {
-                values = [];
-                traverse(data, process, null);
-                console.log(values.length);
 
-                var tooltips = new Array();
-                var id = 0;
-                for (var i = 0; i < values.length; i++) {
-                    var vi = values[i];
-                    for (var j = 0; j < vi.length; j++) {
-                        var vj = vi[j];
-                        var vjValue = vj["value"];
-                        var vjContext = vj["context"];
-                        var contexts = "";
-                        for (var k = 0; k < vjContext.length; k++) {
-                            $.each(vjContext[k], function (key, val) {
-                                contexts += "<p align='left' style='margin-top: 14px'>" + key + ": " + val + "</p>";
-                            });
-                            if (k != vjContext.length - 1) {
-                                contexts += "<hr style='margin-top: 2px; margin-bottom: 4px'>";
+            var dataSend = currentSamples["#txt-document"];
+            if (dataSend === undefined) {
+                return;
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "http://date.jsontest.com",
+                data: dataSend,
+                success: function (data) {
+                    values = [];
+                    traverse(data, process, null);
+                    console.log(values.length);
+
+                    var tooltips = new Array();
+                    var id = 0;
+                    for (var i = 0; i < values.length; i++) {
+                        var vi = values[i];
+                        for (var j = 0; j < vi.length; j++) {
+                            var vj = vi[j];
+                            var vjValue = vj["value"];
+                            var vjContext = vj["context"];
+                            var contexts = "";
+                            for (var k = 0; k < vjContext.length; k++) {
+                                $.each(vjContext[k], function (key, val) {
+                                    contexts += "<p align='left' style='margin-top: 14px'>" + key + ": " + val + "</p>";
+                                });
+                                if (k != vjContext.length - 1) {
+                                    contexts += "<hr style='margin-top: 2px; margin-bottom: 4px'>";
+                                }
                             }
+                            tooltips[id] = contexts;
+                            vj["value"] = "<a id=tooltip" + id++ + " href=# data-toggle=tooltip data-html=true data-placement=top>" + vjValue + "</a>";
+                            delete vj["context"];
                         }
-                        tooltips[id] = contexts;
-                        vj["value"] = "<a id=tooltip" + id++ + " href=# data-toggle=tooltip data-html=true data-placement=top>" + vjValue + "</a>";
-                        delete vj["context"];
                     }
+
+                    $("#txt-merged").html("<pre><code>" + JSON.stringify(data, null, 3) + "</code></pre>");
+
+                    for (var i = 0; i < tooltips.length; i++) {
+                        var t = $("#tooltip" + i);
+                        t.attr("title", tooltips[i]);
+                    }
+
+                    reloadHighlight();
+                    $("#tab_merged").removeClass("disabled");
+                    $('#tab a:last').tab('show');
                 }
-
-                $("#txt-merged").html("<pre><code>" + JSON.stringify(data, null, 3) + "</code></pre>");
-
-                for (var i = 0; i < tooltips.length; i++) {
-                    var t = $("#tooltip" + i);
-                    t.attr("title", tooltips[i]);
-                }
-
-                reloadHighlight();
             });
-            $("#tab_merged").removeClass("disabled");
-            $('#tab a:last').tab('show');
         });
 
         $("#tab_merged").click(function (event) {
@@ -170,6 +181,7 @@
     });
 
     var samples = new Array();
+    var currentSamples = new Array();
     function loadSamples() {
         $.getJSON("config.json", function (data) {
             for (i = 0; i < data["merge_samples"].length; i++) {
@@ -183,6 +195,7 @@
                     var sender = (e && e.target) || (window.event && window.event.srcElement);
                     $("#tab_merged").addClass("disabled");
                     $('#tab a:first').tab('show');
+                    currentSamples.length = 0;
                     setSampleText(samples[sender.id] + "schema.json", "#txt-schema");
                     setSampleText(samples[sender.id] + "document.json", "#txt-document");
                     setSampleText(samples[sender.id] + "temporalcontext.json", "#txt-temporalcontext");
@@ -199,6 +212,7 @@
 
     function setSampleText(url, txtID) {
         $.getJSON(url, function (data) {
+            currentSamples[txtID] = data;
             $(txtID).html("<pre><code>" + JSON.stringify(data, null, 3) + "</code></pre>");
             reloadHighlight();
         });
