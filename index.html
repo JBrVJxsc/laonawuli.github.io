@@ -159,6 +159,8 @@
         var editor = ace.edit("editor0");
         editor.setShowPrintMargin(false);
         editor.renderer.setShowGutter(false);
+        editor.setTheme("ace/theme/solarized_light");
+        editor.getSession().setMode("ace/mode/json");
         editor = ace.edit("editor1");
         editor.setShowPrintMargin(false);
         editor.renderer.setShowGutter(false);
