@@ -6,142 +6,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-
-    <title>Popcorn Demo</title>
-
+    <title>Xu ZHANG</title>
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
 
-
-<!-- Static navbar -->
-<div class="navbar navbar-default navbar-static-top" role="navigation">
-    <div class="container">
+<nav class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <a class="navbar-brand" href="https://bitbucket.org/cmps277f14/popcorn_client">Popcorn Demo</a>
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+            </button>
+            <a class="navbar-brand" href="">Xu ZHANG</a>
         </div>
     </div>
-</div>
+</nav>
 
 
 <div class="container">
-    <div class="jumbotron">
-        <div class="row">
-            <div class="col-6 col-sm-6 col-lg-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Schema</h3>
-                    </div>
-                    <div class="panel-body">
-                        <div id="editor0"></div>
-                    </div>
-                </div>
-            </div>
-            <!--/span-->
-            <div class="col-6 col-sm-6 col-lg-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Document</h3>
-                    </div>
-                    <div class="panel-body">
-                        <div id="editor1"></div>
-                    </div>
-                </div>
-            </div>
-            <!--/span-->
-            <div class="col-6 col-sm-6 col-lg-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Temporal Context</h3>
-                    </div>
-                    <div class="panel-body">
-                        <div id="editor2"></div>
-                    </div>
-                </div>
-            </div>
-            <!--/span-->
-            <div class="col-6 col-sm-6 col-lg-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Merge Preference</h3>
-                    </div>
-                    <div class="panel-body">
-                        <div id="editor3"></div>
-                    </div>
-                </div>
-            </div>
-            <!--/span-->
+    <!-- Nav tabs -->
+    <ul id="tab" class="nav nav-tabs" role="tablist">
+        <li id="tab_aboutme" class="active"><a href="#tab_c_aboutme" role="tab" data-toggle="tab">About
+            Me</a></li>
+        <li id="tab_cv"><a href="#tab_c_cv" role="tab" data-toggle="tab">CV</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div class="tab-pane fade in active" id="tab_c_aboutme">
+            <p></p>
+
+            <p>A Master student of Computer Science in UC, Santa Cruz.</p>
         </div>
-        <!--/row-->
+        <div class="tab-pane fade" id="tab_c_cv">
+            <p></p>
+            <a href="resume.pdf">My Résumé</a>
+        </div>
     </div>
     <!--/span-->
 </div>
-<!-- /container -->
-
-<div class="container">
-
-    <div class="btn-group">
-
-        <button type="button" class="btn btn-default btn-group-lg" data-toggle="modal" data-target="#myModal">
-            <span class="glyphicon glyphicon-play"></span> Merge
-        </button>
-
-        <div class="btn-group">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                Choose Samples
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-                <li><a href="#">Sample 1</a></li>
-                <li><a href="#">Sample 2</a></li>
-            </ul>
-        </div>
-    </div>
-
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
-                        class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="myModalLabel">Merged archive</h4>
-            </div>
-            <div class="modal-body">
-                <div id="editor4"></div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<style type='text/css'>
-    #editor0 {
-        height: 145px;
-    }
-
-    #editor1 {
-        height: 145px;
-    }
-
-    #editor2 {
-        height: 145px;
-    }
-
-    #editor3 {
-        height: 145px;
-    }
-
-    #editor4 {
-        height: 500px;
-    }
-</style>
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
@@ -149,43 +55,5 @@
 <script type='text/javascript' src="js/ace/ace.js"></script>
 <script src="js/jquery-1.11.1.js"></script>
 <script src="js/bootstrap.min.js"></script>
-<script type='text/javascript'>
-    $(function () {
-        var demo = "{\"employees\":[" + "\n" +
-                "  {\"firstName\":\"John\", \"lastName\":\"Doe\"}," + "\n" +
-                "  {\"firstName\":\"Anna\", \"lastName\":\"Smith\"}," + "\n" +
-                "  {\"firstName\":\"Peter\", \"lastName\":\"Jones\"}" + "\n" +
-                "]}";
-        var editor = ace.edit("editor0");
-        editor.setShowPrintMargin(false);
-        editor.renderer.setShowGutter(false);
-        editor.setTheme("ace/theme/solarized_light");
-        editor.getSession().setMode("ace/mode/json");
-        editor = ace.edit("editor1");
-        editor.setShowPrintMargin(false);
-        editor.renderer.setShowGutter(false);
-        editor.setTheme("ace/theme/solarized_light");
-        editor.getSession().setMode("ace/mode/json");
-        // editor.insert(demo);
-        editor = ace.edit("editor2");
-        editor.setShowPrintMargin(false);
-        editor.renderer.setShowGutter(false);
-        editor.setTheme("ace/theme/solarized_light");
-        editor.getSession().setMode("ace/mode/json");
-        // editor.insert(demo);
-        editor = ace.edit("editor3");
-        editor.setShowPrintMargin(false);
-        editor.renderer.setShowGutter(false);
-        editor.setTheme("ace/theme/solarized_light");
-        editor.getSession().setMode("ace/mode/json");
-        // editor.insert(demo);
-        editor = ace.edit("editor4");
-        editor.setShowPrintMargin(false);
-        editor.renderer.setShowGutter(false);
-        editor.setTheme("ace/theme/solarized_light");
-        editor.getSession().setMode("ace/mode/json");
-        // editor.insert(demo);
-    });
-</script>
 </body>
 </html>
